@@ -4,28 +4,46 @@ import { useDispatch, useSelector } from "react-redux";
 //useSelector sirve para fijar
 import {
   obternerPokemonesPage1,
-  obternerPokemonesPage2,
+  obternerPokemonesNext,
+  obternerPokemonesPrev,
 } from "../redux/pokeDucks";
 
 function Pokemones() {
   const dispatch = useDispatch();
-  const pokemones = useSelector((store) => store.pokemones.array);
-  //console.table(pokemones);
+  const pokemones = useSelector((store) => store.pokemones.results);
+  const next = useSelector((store) => store.pokemones.next);
+  const previous = useSelector((store) => store.pokemones.previous);
+
+  console.table(pokemones);
 
   return (
     <div>
-      lista de pokemones
-      <button className="" onClick={() => dispatch(obternerPokemonesPage1())}>
-        Get Pokemones
-      </button>
-      <button className="" onClick={() => dispatch(obternerPokemonesPage2(20))}>
-        Next Pokemons
-      </button>
-      <ol>
+      <h2>lista de pokemones</h2>
+
+      {pokemones.length === 0 && (
+        <button className="" onClick={() => dispatch(obternerPokemonesPage1())}>
+          Get Pokemones
+        </button>
+      )}
+
+      {next && (
+        <button className="" onClick={() => dispatch(obternerPokemonesNext())}>
+          Next Pokemons
+        </button>
+      )}
+      {previous && (
+        <button className="" onClick={() => dispatch(obternerPokemonesPrev())}>
+          Previous Pokemons
+        </button>
+      )}
+
+      <ul>
         {pokemones.map((item, index) => (
-          <li key={index}>{item.name}</li>
+          <li key={index}>
+            {item.name} - {item.url}
+          </li>
         ))}
-      </ol>
+      </ul>
     </div>
   );
 }
