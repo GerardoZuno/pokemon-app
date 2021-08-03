@@ -78,49 +78,50 @@ export const obternerPokemonesNext = () => async (dispatch, getState) => {
   const { next } = getState().pokemones;
   console.log(next);
 
-  if (localStorage.getItem("NEXT")) {
+  if (localStorage.getItem(next)) {
     console.log("DATOS GUARDADOS next");
     dispatch({
       type: OBTENER_POKEMONES_EXITO_NEXT,
-      payload: JSON.parse(localStorage.getItem("NEXT")),
+      payload: JSON.parse(localStorage.getItem(next)),
     });
-    return;
   }
+  
+  else {
+    try {
 
-  try {
-    console.log("DATOS api next");  
-    const res = await axios.get(next);
-    dispatch({
-      type: OBTENER_POKEMONES_EXITO_NEXT,
-      payload: res.data,
-    });
-    localStorage.setItem("NEXT", JSON.stringify(res.data));
-  } catch (err) {
-    console.log(err);
+      console.log("DATOS api next");
+      const res = await axios.get(next);
+      dispatch({
+        type: OBTENER_POKEMONES_EXITO_NEXT,
+        payload: res.data,
+      });
+      localStorage.setItem(next, JSON.stringify(res.data));
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
-
 
 export const obternerPokemonesPrev = () => async (dispatch, getState) => {
   const { previous } = getState().pokemones;
 
-  if (localStorage.getItem("PREV")) {
+  if (localStorage.getItem(previous)) {
     console.log("DATOS GUARDADOS PREV");
     dispatch({
-      type: OBTENER_POKEMONES_EXITO_NEXT,
-      payload: JSON.parse(localStorage.getItem("PREV")),
+      type: OBTENER_POKEMONES_EXITO_PREV,
+      payload: JSON.parse(localStorage.getItem(previous)),
     });
     return;
   }
   try {
-    console.log("DATOS api PREV");  
-  
+    console.log("DATOS api PREV");
+
     const res = await axios.get(previous);
     dispatch({
       type: OBTENER_POKEMONES_EXITO_PREV,
       payload: res.data,
     });
-    localStorage.setItem("PREV", JSON.stringify(res.data));  
+    localStorage.setItem(previous, JSON.stringify(res.data));
   } catch (err) {
     console.log(err);
   }

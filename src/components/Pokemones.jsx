@@ -17,33 +17,45 @@ function Pokemones() {
   //console.table(pokemones);
 
   return (
-    <div>
-      <h2>lista de pokemones</h2>
+    <div className='row'>
 
+       <div className="col-md-6"> 
+      <h2>Lista de Pokemones</h2>
+
+      <div className="d-flex justify-content-between">
       {pokemones.length === 0 && (
-        <button className="" onClick={() => dispatch(obternerPokemonesPage1())}>
+        <button className="btn btn-dark" onClick={() => dispatch(obternerPokemonesPage1())}>
           Get Pokemones
         </button>
       )}
 
       {next && (
-        <button className="" onClick={() => dispatch(obternerPokemonesNext())}>
+        <button className="btn btn-dark" onClick={() => dispatch(obternerPokemonesNext())}>
           Next Pokemons
         </button>
       )}
       {previous && (
-        <button className="" onClick={() => dispatch(obternerPokemonesPrev())}>
+        <button className="btn btn-dark" onClick={() => dispatch(obternerPokemonesPrev())}>
           Previous Pokemons
         </button>
       )}
+      </div>
 
-      <ul>
+     
+
+      <ul className='list-group mt-3'>
         {pokemones.map((item, index) => (
-          <li key={index}>
-            {item.name} - {item.url}
+          <li key={index} className='list-group-item text-uppercase'>
+            {item.name} 
+            <button className='btn btn-info btn-sm float-right'>Info</button>
           </li>
         ))}
       </ul>
+      </div>
+       <div className="col-md-6">
+           Detalles
+       </div>
+
     </div>
   );
 }
