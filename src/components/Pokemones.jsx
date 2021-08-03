@@ -6,7 +6,9 @@ import {
   obternerPokemonesPage1,
   obternerPokemonesNext,
   obternerPokemonesPrev,
+  detallesPokemon
 } from "../redux/pokeDucks";
+import Detalles from "./Detalles";
 
 function Pokemones() {
   const dispatch = useDispatch();
@@ -14,6 +16,14 @@ function Pokemones() {
   const next = useSelector((store) => store.pokemones.next);
   const previous = useSelector((store) => store.pokemones.previous);
 
+
+  React.useEffect(()=> {
+    const fetchData = () => {
+        dispatch(obternerPokemonesPage1())
+    }
+    fetchData();
+
+}, [dispatch])
   //console.table(pokemones);
 
   return (
@@ -47,13 +57,18 @@ function Pokemones() {
         {pokemones.map((item, index) => (
           <li key={index} className='list-group-item text-uppercase'>
             {item.name} 
-            <button className='btn btn-info btn-sm float-right'>Info</button>
+            <button className='btn btn-info btn-sm float-right'
+            onClick={() => dispatch(detallesPokemon(item.url))}
+            >
+              Info
+            </button>
           </li>
         ))}
       </ul>
       </div>
        <div className="col-md-6">
-           Detalles
+           <h2>Detalles</h2>
+           <Detalles/>
        </div>
 
     </div>

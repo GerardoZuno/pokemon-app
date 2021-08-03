@@ -11,6 +11,7 @@ const dataInicial = {
 const OBTENER_POKEMONES_EXITO_PAGE1 = "OBTENER_POKEMONES_EXITO_PAGE1";
 const OBTENER_POKEMONES_EXITO_NEXT = "OBTENER_POKEMONES_EXITO_NEXT";
 const OBTENER_POKEMONES_EXITO_PREV = "OBTENER_POKEMONES_EXITO_PREV";
+const DETALLES_POKEMONES = "DETALLES_POKEMONES"
 
 //reducer
 export default function pokeReducer(state = dataInicial, action) {
@@ -30,6 +31,11 @@ export default function pokeReducer(state = dataInicial, action) {
         ...state,
         ...action.payload,
       };
+    case DETALLES_POKEMONES:
+      return {
+        ...state,
+        unPokemon: action.payload
+      }  
     default:
       return state;
   }
@@ -54,7 +60,7 @@ export const obternerPokemonesPage1 = () => async (dispatch, getState) => {
     try {
       console.log("DATOS API");
       const res = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`
+        `https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`
       );
       dispatch({
         type: OBTENER_POKEMONES_EXITO_PAGE1,
@@ -126,3 +132,47 @@ export const obternerPokemonesPrev = () => async (dispatch, getState) => {
     console.log(err);
   }
 };
+
+//Acciones Detalles component
+
+export const detallesPokemon = (url = 'https://pokeapi.co/api/v2/pokemon/9/'
+) => async(dispatch, getState) => {
+
+  if (localStorage.getItem(url)) {
+    console.log("DATOS GUARDADOS detalles");
+    dispatch({
+      type: DETALLES_POKEMONES,
+      payload: JSON.parse(localStorage.getItem(url)),
+    });
+    return
+  } 
+    try {
+      console.log('DETALLES API')
+      const res = await axios.get(url)
+      console.log(res.data)
+      dispatch({
+        type: DETALLES_POKEMONES,
+        payload: {
+          nombre: res.data.name,
+          ancho: res.data.weight,
+          alto: res.data.height,
+          foto: res.data.sprites.front_default
+        }
+      })
+      //FOTO SIEMPRE SE CARGA DE LA API
+      localStorage.setItem(url, JSON.stringify({ 
+        nombre: res.data.name,
+        ancho: res.data.weight,
+        alto: res.data.height,
+        foto: res.data.sprites.front_default}))
+
+        
+  }catch(err) {
+      console.log(err);
+  }
+
+
+  }
+   
+   
+
