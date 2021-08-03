@@ -14,7 +14,7 @@ function Pokemones() {
   const next = useSelector((store) => store.pokemones.next);
   const previous = useSelector((store) => store.pokemones.previous);
 
-  console.table(pokemones);
+  //console.table(pokemones);
 
   return (
     <div>
