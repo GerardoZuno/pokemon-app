@@ -80,11 +80,13 @@ export const leerUsuarioActivo = () => async (dispatch, getState) => {
     }
 }
 
-export const cerrarSesionAccion = () => async (dispatch, getState) => {
-   
-        auth.signOut()
-        localStorage.removeItem('usuario');
-         dispatch({
-             type: CERRAR_SESION_ACCION
-         })
+export const cerrarSesionAccion = () => async (dispatch) => {
+         
+            auth.signOut()
+            localStorage.removeItem('usuario');
+             dispatch({
+                 type: CERRAR_SESION_ACCION,
+                 
+             })
+              
 }

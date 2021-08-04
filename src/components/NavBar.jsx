@@ -1,16 +1,20 @@
 import React from 'react'
 import { Link, NavLink, useHistory } from "react-router-dom";
-import {useDispatch, useSelector} from 'react-redux'
-import {cerrarSesionAccion} from '../redux/userDucks'
+import {useDispatch} from 'react-redux'
+import { cerrarSesionAccion} from '../redux/userDucks'
 
 
 const NavBar = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const cerrarSesion = () => {
-        dispatch(cerrarSesionAccion())
-        history.push('/login')
+    const cerrarSesion =  () => {
+        try{
+            dispatch( cerrarSesionAccion())
+            history.push('/login')
+        } catch(err){
+            console.log(err)
+        }       
     }
    
     return (
@@ -27,7 +31,7 @@ const NavBar = () => {
                 </NavLink>
                 <button 
                 className="btn btn-dark mr-2"
-                onClick={() => dispatch(cerrarSesion())}
+                onClick={() => (cerrarSesion())}
                 >Cerrar Sesion</button>
 
             </div>
