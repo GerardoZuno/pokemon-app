@@ -51,7 +51,7 @@ export const obternerPokemonesPage1 = () => async (dispatch, getState) => {
     console.log(offset)*/
 
   if (localStorage.getItem("offset=0")) {
-    console.log("DATOS GUARDADOS");
+    //console.log("DATOS GUARDADOS");
     dispatch({
       type: OBTENER_POKEMONES_EXITO_PAGE1,
       payload: JSON.parse(localStorage.getItem("offset=0")),
@@ -82,10 +82,10 @@ export const obternerPokemonesNext = () => async (dispatch, getState) => {
     const limite = limit + numero*/
 
   const { next } = getState().pokemones;
-  console.log(next);
+  //console.log(next);
 
   if (localStorage.getItem(next)) {
-    console.log("DATOS GUARDADOS next");
+    //console.log("DATOS GUARDADOS next");
     dispatch({
       type: OBTENER_POKEMONES_EXITO_NEXT,
       payload: JSON.parse(localStorage.getItem(next)),
@@ -95,7 +95,7 @@ export const obternerPokemonesNext = () => async (dispatch, getState) => {
   else {
     try {
 
-      console.log("DATOS api next");
+      //console.log("DATOS api next");
       const res = await axios.get(next);
       dispatch({
         type: OBTENER_POKEMONES_EXITO_NEXT,
@@ -112,7 +112,7 @@ export const obternerPokemonesPrev = () => async (dispatch, getState) => {
   const { previous } = getState().pokemones;
 
   if (localStorage.getItem(previous)) {
-    console.log("DATOS GUARDADOS PREV");
+    //console.log("DATOS GUARDADOS PREV");
     dispatch({
       type: OBTENER_POKEMONES_EXITO_PREV,
       payload: JSON.parse(localStorage.getItem(previous)),
@@ -120,7 +120,7 @@ export const obternerPokemonesPrev = () => async (dispatch, getState) => {
     return;
   }
   try {
-    console.log("DATOS api PREV");
+    //console.log("DATOS api PREV");
 
     const res = await axios.get(previous);
     dispatch({
@@ -139,7 +139,7 @@ export const detallesPokemon = (url = 'https://pokeapi.co/api/v2/pokemon/9/'
 ) => async(dispatch, getState) => {
 
   if (localStorage.getItem(url)) {
-    console.log("DATOS GUARDADOS detalles");
+    //console.log("DATOS GUARDADOS detalles");
     dispatch({
       type: DETALLES_POKEMONES,
       payload: JSON.parse(localStorage.getItem(url)),
@@ -147,9 +147,9 @@ export const detallesPokemon = (url = 'https://pokeapi.co/api/v2/pokemon/9/'
     return
   } 
     try {
-      console.log('DETALLES API')
+      //console.log('DETALLES API')
       const res = await axios.get(url)
-      console.log(res.data)
+      //console.log(res.data)
       dispatch({
         type: DETALLES_POKEMONES,
         payload: {

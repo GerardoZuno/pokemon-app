@@ -9,13 +9,13 @@ const Login = () => {
     const history = useHistory()
     const loading = useSelector(store => store.usuario.loading)
     const activo = useSelector(store => store.usuario.activo)
-    console.log(activo)
+    //console.log(activo)
 
     const dispatch = useDispatch()
-    console.log(history)
+    //console.log(history)
 
     React.useEffect(() => {
-        console.log(activo)
+        //console.log(activo)
         if(activo){
             history.push('/')
         }

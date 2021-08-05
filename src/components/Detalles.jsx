@@ -6,7 +6,7 @@ import {detallesPokemon} from '../redux/pokeDucks'
 function Detalles() {
     const dispatch = useDispatch()
     const pokemon = useSelector(pokemon => pokemon.pokemones.unPokemon)
-    console.log(pokemon)
+    //console.log(pokemon)
 
     React.useEffect(()=> {
         const fetchData = () => {

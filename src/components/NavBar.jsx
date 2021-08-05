@@ -8,7 +8,7 @@ const NavBar = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const activo =useSelector(store => store.usuario.activo)
-    console.log(activo)
+    //console.log(activo)
 
     const cerrarSesion =  () => {
         try{
