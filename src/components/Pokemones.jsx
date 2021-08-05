@@ -32,6 +32,20 @@ function Pokemones() {
        <div className="col-md-6"> 
       <h2>Lista de Pokemones</h2>
 
+      
+      <ul className='list-group mt-4 mb-3'>
+        {pokemones.map((item, index) => (
+          <li key={index} className='list-group-item text-uppercase'>
+            {item.name} 
+            <button className='btn btn-info btn-sm float-right'
+            onClick={() => dispatch(detallesPokemon(item.url))}
+            >
+              Info
+            </button>
+          </li>
+        ))}
+      </ul>
+
       <div className="d-flex justify-content-between">
       {pokemones.length === 0 && (
         <button className="btn btn-dark" onClick={() => dispatch(obternerPokemonesPage1())}>
@@ -53,18 +67,6 @@ function Pokemones() {
 
      
 
-      <ul className='list-group mt-3'>
-        {pokemones.map((item, index) => (
-          <li key={index} className='list-group-item text-uppercase'>
-            {item.name} 
-            <button className='btn btn-info btn-sm float-right'
-            onClick={() => dispatch(detallesPokemon(item.url))}
-            >
-              Info
-            </button>
-          </li>
-        ))}
-      </ul>
       </div>
        <div className="col-md-6">
            <h2>Detalles</h2>

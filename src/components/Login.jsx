@@ -8,19 +8,19 @@ const Login = () => {
 
     const history = useHistory()
     const loading = useSelector(store => store.usuario.loading)
-    const active = useSelector(store => store.usuario.active)
-    console.log(active)
+    const activo = useSelector(store => store.usuario.activo)
+    console.log(activo)
 
     const dispatch = useDispatch()
     console.log(history)
 
     React.useEffect(() => {
-        console.log(active)
-        if(active){
+        console.log(activo)
+        if(activo){
             history.push('/')
         }
 
-    }, [active, history])
+    }, [activo, history])
 
 
 

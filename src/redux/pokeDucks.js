@@ -60,7 +60,7 @@ export const obternerPokemonesPage1 = () => async (dispatch, getState) => {
     try {
       console.log("DATOS API");
       const res = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`
+        `https://pokeapi.co/api/v2/pokemon?offset=0&limit=5`
       );
       dispatch({
         type: OBTENER_POKEMONES_EXITO_PAGE1,

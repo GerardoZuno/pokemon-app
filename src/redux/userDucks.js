@@ -24,7 +24,7 @@ export default function usuarioReducer(state = dataInicial, action) {
       return { ...dataInicial, loading: false };
 
     case USUARIO_EXITO:
-      return { ...state, loading: false, user: action.payload, active: true };
+      return { ...state, loading: false, user: action.payload, activo: true };
     
     case CERRAR_SESION_ACCION:
         return { ...dataInicial };
