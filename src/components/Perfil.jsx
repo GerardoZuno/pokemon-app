@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actualizarUsuarioAccion } from "../redux/userDucks";
+import { actualizarUsuarioAccion, editarFotoAccion } from "../redux/userDucks";
 
 const Perfil = () => {
   const usuario = useSelector((store) => store.usuario.user);
@@ -9,6 +9,7 @@ const Perfil = () => {
 
   const [nombre, setNombre] = useState(usuario.displayName);
   const [editar, setEditar] = useState(false);
+  const [error, setError] = useState(false);
 
   const actualizarUsuario = () => {
     if (!nombre.trim()) {
@@ -19,23 +20,67 @@ const Perfil = () => {
     setEditar(false);
   };
 
+  const seleccionarArchivo = (imagen) => {
+     console.log(imagen.target.files[0])
+     const pngImagen = imagen.target.files[0]
+     if(pngImagen === undefined) {
+        console.log('Imagen vacia') 
+        return
+     }
+
+    
+     if(pngImagen.type === "image/png" || pngImagen.type === "image/jpg" || pngImagen.type === "image/jpeg"){
+        dispatch(editarFotoAccion(pngImagen))
+        setError(false)
+
+     }else{
+         setError(true)
+     }
+  }
+
   return (
     <div className="mt-5 text-center">
       <div className="card">
         <div className="card-body">
-          <img src={usuario.photoURL} alt="" className="img-fluid mb-3" />
+          <img src={usuario.photoURL}  width="150px" alt="" className="img-fluid mb-3 " />
+
           <h5 className="card-title">
             Nombre de Usuario: {usuario.displayName}
           </h5>
           <p className="card-text">Email: {usuario.email}</p>
-          <button className="btn btn-info" onClick={() => setEditar(true)}>
+          <button className="btn btn-info mb-3" onClick={() => setEditar(true)}>
             Editar Nombre
           </button>
+          {
+           error && (
+               <div className='alert alert-warning'>
+                    Solo archivos .png o .jpg
+               </div>
+           )
+         }     
+          <div className="custom-file">        
+         <input 
+         type="file" 
+         className="custom-file-input" 
+         id="inputGroupFile01"
+         style={{display: 'none'}}
+         onChange={e => seleccionarArchivo(e)}
+         disabled={loading}        
+         />
+       <label
+        className={loading ? 'btn btn-info disabled' : 'btn btn-info'} 
+        htmlFor="inputGroupFile01"
+        
+        >
+            Actualizar Imagen
+        </label>
+       </div>
+       </div>
         </div>
         {loading && (
           <div className="card-body">
-            <div class="spinner-grow" role="status">
-              <span class="sr-only">Loading...</span>
+            <div className="spinner-grow" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
           </div>
         )}
@@ -72,7 +117,6 @@ const Perfil = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
