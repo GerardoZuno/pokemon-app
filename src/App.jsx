@@ -2,6 +2,8 @@ import React from 'react'
 import Pokemones from './components/Pokemones'
 import Login from './components/Login';
 import NavBar from './components/NavBar';
+import Perfil from './components/Perfil';
+
 import {auth } from './firebase'
 import {
   BrowserRouter as Router,
@@ -51,6 +53,7 @@ const RutaPrivada = ({component, path, ...rest}) => {
         <NavBar />
        <Switch>
          <RutaPrivada exact path='/' component={Pokemones}/>
+         <RutaPrivada exact path='/perfil' component={Perfil}/>
          <Route exact path='/login' component={Login}/>
 
        </Switch> 
