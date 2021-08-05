@@ -104,5 +104,32 @@ export const cerrarSesionAccion = () => async (dispatch) => {
                  type: CERRAR_SESION_ACCION,
                  
              })
-              
-}
+              }
+
+export const actualizarUsuarioAccion =  (nombreActualizado) => async (dispatch, getState) => {
+  dispatch({
+    type: LOADING,
+  });
+  
+  const {user} = getState().usuario
+  console.log(user)
+  try {
+      await db.collection('usuarios').doc(user.email).update({
+         displayName: nombreActualizado
+      })
+      const usuario = {
+        ...user,
+        displayName: nombreActualizado
+      }
+      dispatch({
+        type:  USUARIO_EXITO,
+        payload: usuario
+      })
+
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+
+    }catch (err) {
+      console.log(err);
+    }
+}              
+
